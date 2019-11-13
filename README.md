@@ -10,7 +10,7 @@ This exercise will introduce some basics of the scripting functionality in Image
 What are script parameters?
 They look like this:
 
-#@ Dataset image
+  #@ Dataset image
 
 * The "hash at" (#@) is used to identify a script parameter.
 * The "Dataset" is the type of the input. In this case, we want an image.
@@ -20,7 +20,7 @@ They look like this:
 
 Other script parameters
 An informative message
-#@ String (visibility=MESSAGE, value="Please enter some parameter values", persist=false, required=false) msg
+  #@ String (visibility=MESSAGE, value="Please enter some parameter values", persist=false, required=false) msg
 
 We can provide a set of predefined choices
 #@ String (label="Which measurement?", choices={mean,median,min,max}) measurement
