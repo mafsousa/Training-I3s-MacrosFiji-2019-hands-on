@@ -6,7 +6,7 @@ This exercise will introduce some basics of the scripting functionality in Image
  
 1. How to get started with script parameters
  
-# What are script parameters?
+** What are script parameters?
 They look like this:
 
 ```python
@@ -110,9 +110,9 @@ If we really need to convert between the two,
 (e.g. because you create a new image and need to process it)
 we have several options to do so:
 
-** ConvertService.convert()
-** LegacyService.getImageMap.register...
-** ImageJFunctions.wrap()
+a. ConvertService.convert()
+b. LegacyService.getImageMap.register...
+c. ImageJFunctions.wrap()
 
 ```python
 # Create a new image using Ops
