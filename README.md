@@ -6,7 +6,7 @@ This exercise will introduce some basics of the scripting functionality in Image
  
 1. How to get started with script parameters
  
-** What are script parameters?
+*What are script parameters?*
 They look like this:
 
 ```python
