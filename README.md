@@ -110,9 +110,9 @@ If we really need to convert between the two,
 (e.g. because you create a new image and need to process it)
 we have several options to do so:
 
-a) ConvertService.convert()
-b) LegacyService.getImageMap.register...
-c) ImageJFunctions.wrap()
+** ConvertService.convert()
+** LegacyService.getImageMap.register...
+** ImageJFunctions.wrap()
 
 ```python
 # Create a new image using Ops
@@ -137,14 +137,12 @@ import ij.ImagePlus
 sinusoidImp = convertService.convert(sinusoidDataset, ImagePlus.class)
 
 ```
-/*
- * For further information on mixing and matching IJ1 and IJ2, see:
- * https://imagej.net/ImageJ1-ImageJ2_cheat_sheet
- */
+For further information on mixing and matching IJ1 and IJ2, see:
+https://imagej.net/ImageJ1-ImageJ2_cheat_sheet
 
-# Run "Find Maxima...", an ImageJ1 plugin, to count the maxima
+
 ```python
+# Run "Find Maxima...", an ImageJ1 plugin, to count the maxima
 IJ.run(sinusoidImp, "Find Maxima...", "noise=10 output=Count")
-
 ```
 
