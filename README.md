@@ -4,11 +4,10 @@
 
 This exercise will introduce some basics of the scripting functionality in ImageJ2
  
-1. How to get started with script parameters
+# 1. How to get started with script parameters
  
 *What are script parameters?*
 They look like this:
-
 ```python
   #@ Dataset image
   ```
@@ -50,7 +49,7 @@ return
 ```
 Note that all these script parameters also work in .ijm macros! No need to use Dialog.create, Dialog.addNumber, Dialog.show etc. anymore!!
 
-2. ImageJ API: SciJava Services and Ops
+# 2. ImageJ API: SciJava Services and Ops
  
 A large part of the ImageJ functionality is provided by services.
 Let us introduce some of the most important services here.
@@ -89,7 +88,7 @@ value = ops.run("stats.mean", image).getRealDouble()
 ```
 For more services, see https://imagej.net/SciJava_Common#Services
 
-3. How to mix and match IJ1 and IJ2 API
+# 3. How to mix and match IJ1 and IJ2 API
 
 In many cases, we can rely on the framework to do the conversion autmatically.
 
@@ -105,7 +104,6 @@ import ij.IJ
 IJ.run(imp, "Invert", "")
 
 ````
-
 If we really need to convert between the two,
 (e.g. because you create a new image and need to process it)
 we have several options to do so:
@@ -116,11 +114,9 @@ we have several options to do so:
 
 ```python
 # Create a new image using Ops
-
 sinusoidImage = ops.run("create.img", [100, 100])
 
 # Fill image with some data
-
 ops.run("image.equation", sinusoidImage, "63 * (Math.cos(0.3*p[0]) + Math.sin(0.3*p[1])) + 127")
 
 # Create a Dataset from the result
@@ -130,19 +126,13 @@ sinusoidDataset = datasetService.create(sinusoidImage)
 #show image
 ui.show(sinusoidDataset)
 
-# Convert the image
-
-#  Using ConvertService
+# Convert the image using ConvertService
 import ij.ImagePlus
 sinusoidImp = convertService.convert(sinusoidDataset, ImagePlus.class)
 
-```
-For further information on mixing and matching IJ1 and IJ2, see:
-https://imagej.net/ImageJ1-ImageJ2_cheat_sheet
-
-
-```python
 # Run "Find Maxima...", an ImageJ1 plugin, to count the maxima
 IJ.run(sinusoidImp, "Find Maxima...", "noise=10 output=Count")
 ```
+For further information on mixing and matching IJ1 and IJ2, see:
 
+https://imagej.net/ImageJ1-ImageJ2_cheat_sheet
