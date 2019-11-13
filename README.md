@@ -1,5 +1,4 @@
 # Introduction to ImageJ2 Scripting
-=====================================
 
 (Mafalda Sousa, acknowledged to Jan Eglinger )
 
@@ -7,7 +6,7 @@ This exercise will introduce some basics of the scripting functionality in Image
  
 1. How to get started with script parameters
  
-What are script parameters?
+# What are script parameters?
 They look like this:
 
 ```python
@@ -20,13 +19,14 @@ They look like this:
 * The "image" is the name of the variable.
 * The input value will be assigned differently depending on the context.
 
-Other script parameters
+Other script parameters:
+
 An informative message
 ```python
   #@ String (visibility=MESSAGE, value="Please enter some parameter values", persist=false, required=false) msg
   ```
 
-We can provide a set of predefined choices
+A set of predefined choices
 ```python
 #@ String (label="Which measurement?", choices={mean,median,min,max}) measurement
 ```
@@ -83,15 +83,68 @@ Finally, there's OpService, giving access to the powerful ImageJ Ops
 ```python
 #@ OpService ops
 ```
-
 Now, for example run the "stats.mean" op. (Note that it returns an ImgLib2 Type, so we need to call getRealDouble() to get its value.)
+```python
 value = ops.run("stats.mean", image).getRealDouble()
-
+```
 For more services, see https://imagej.net/SciJava_Common#Services
- 
- * 3. Calling scripts from other scripts
- * 4. Using ImgLib2 ROIs
- * 5. How to mix and match IJ1 and IJ2 API
+
+3. How to mix and match IJ1 and IJ2 API
+
+In many cases, we can rely on the framework to do the conversion autmatically.
+
+For other cases, we can use the ConvertService to convert from one type to another.
+
+If we need to have the active image both as (IJ2) Dataset and (IJ1) ImagePlus,
+we can just use two input parameters (the Dataset above and a new ImagePlus here):
+```python
+#@ ImagePlus imp
+
+# Run an ImageJ1 plugin, e.g. Invert...
+import ij.IJ
+IJ.run(imp, "Invert", "")
+
+````
+
+If we really need to convert between the two,
+(e.g. because you create a new image and need to process it)
+we have several options to do so:
+
+a) ConvertService.convert()
+b) LegacyService.getImageMap.register...
+c) ImageJFunctions.wrap()
+
+```python
+# Create a new image using Ops
+
+sinusoidImage = ops.run("create.img", [100, 100])
+
+# Fill image with some data
+
+ops.run("image.equation", sinusoidImage, "63 * (Math.cos(0.3*p[0]) + Math.sin(0.3*p[1])) + 127")
+
+# Create a Dataset from the result
+#@ DatasetService datasetService
+sinusoidDataset = datasetService.create(sinusoidImage)
+
+#show image
+ui.show(sinusoidDataset)
+
+# Convert the image
+
+#  Using ConvertService
+import ij.ImagePlus
+sinusoidImp = convertService.convert(sinusoidDataset, ImagePlus.class)
+
+```
+/*
+ * For further information on mixing and matching IJ1 and IJ2, see:
+ * https://imagej.net/ImageJ1-ImageJ2_cheat_sheet
  */
- 
- 
+
+# Run "Find Maxima...", an ImageJ1 plugin, to count the maxima
+```python
+IJ.run(sinusoidImp, "Find Maxima...", "noise=10 output=Count")
+
+```
+
