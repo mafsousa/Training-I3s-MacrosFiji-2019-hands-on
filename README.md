@@ -110,9 +110,9 @@ If we really need to convert between the two,
 (e.g. because you create a new image and need to process it)
 we have several options to do so:
 
-a. ConvertService.convert()
-b. LegacyService.getImageMap.register...
-c. ImageJFunctions.wrap()
+ 1. ConvertService.convert()
+ 2. LegacyService.getImageMap.register...
+ 3. ImageJFunctions.wrap()
 
 ```python
 # Create a new image using Ops
