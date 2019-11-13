@@ -22,62 +22,67 @@ They look like this:
 
 Other script parameters
 An informative message
+```python
   #@ String (visibility=MESSAGE, value="Please enter some parameter values", persist=false, required=false) msg
+  ```
 
 We can provide a set of predefined choices
+```python
 #@ String (label="Which measurement?", choices={mean,median,min,max}) measurement
-
+```
 A File parameter can have two styles: "open" (the default) or "save"
+```python
 #@ File (style=save, label="Save image to") destinationFile
-
+```
 A slider to choose a numeric input value
+```python
 #@ Double (style=slider, min=0.5, max=10, stepSize=0.5, columns=3) someValue
-
+```
 We can also define OUTPUTs.
 Output parameters will be processed by the framework after executing the script.
 Most known output types (e.g. numbers, text or boolean values) will be shown in a results table.
 
+```python
 #@output Boolean success
 
 success = true
 return 
-
+```
 Note that all these script parameters also work in .ijm macros! No need to use Dialog.create, Dialog.addNumber, Dialog.show etc. anymore!!
 
 2. ImageJ API: SciJava Services and Ops
  
- A large part of the ImageJ functionality is provided by services.
-  
- Let us introduce some of the most important services here.
- We can access them easily using script parameters:
+A large part of the ImageJ functionality is provided by services.
+Let us introduce some of the most important services here.
+We can access them easily using script parameters:
  
-
 LogService can be used to log e.g. infos, warnings and errors
+```python
 #@ LogService log
 
 log.info("This is an info message.")
 log.warn("This is a warning.")
 log.error("This is an error.")
+```
 
 IOService can be used to open and save images or other data
+```python
 #@ IOService io
-
+```
 baboon = io.open("https://imagej.net/images/baboon.gif")
 
 UIService can be used to display an image or other data
+```python
 #@ UIService ui
 
 ui.show(baboon)
-
+```
 Note that in addition to IOService, there's also DatasetIOService, which has more control over how images are opened.
 
 Finally, there's OpService, giving access to the powerful ImageJ Ops
-
+```python
 #@ OpService ops
-
-// Let's also define another output here:
-
-#@output value
+```
 
 Now, for example run the "stats.mean" op. (Note that it returns an ImgLib2 Type, so we need to call getRealDouble() to get its value.)
 value = ops.run("stats.mean", image).getRealDouble()
