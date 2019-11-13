@@ -1,7 +1,7 @@
 # Introduction to ImageJ2 Scripting
 =====================================
 
-(Mafalda Sousa, acknoledged to Jan Eglinger )
+(Mafalda Sousa, acknowledged to Jan Eglinger )
 
 This exercise will introduce some basics of the scripting functionality in ImageJ2
  
