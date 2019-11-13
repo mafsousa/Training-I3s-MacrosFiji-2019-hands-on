@@ -10,7 +10,9 @@ This exercise will introduce some basics of the scripting functionality in Image
 What are script parameters?
 They look like this:
 
+```python
   #@ Dataset image
+  ```
 
 * The "hash at" (#@) is used to identify a script parameter.
 * The "Dataset" is the type of the input. In this case, we want an image.
