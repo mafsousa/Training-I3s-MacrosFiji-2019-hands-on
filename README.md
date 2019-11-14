@@ -67,8 +67,9 @@ log.error("This is an error.")
 IOService can be used to open and save images or other data
 ```python
 #@ IOService io
-```
 baboon = io.open("https://imagej.net/images/baboon.gif")
+```
+
 
 UIService can be used to display an image or other data
 ```python
