@@ -89,6 +89,48 @@ value = ops.run("stats.mean", image).getRealDouble()
 ```
 For more services, see https://imagej.net/SciJava_Common#Services
 
+# 3. Creating and Displaying an Image
+The following piece of code creates and displays an 400x320 8-bit gray-level image:
+```python
+import net.imglib2.img.Img
+import net.imglib2.img.array.ArrayImgFactory
+import net.imglib2.type.numeric.integer.UnsignedByteType
+ 
+# will create a window showing a black 400x320 image
+final ImgFactory< UnsignedByteType > factory = new ArrayImgFactory<>( new UnsignedByteType() );
+
+final long[] dimensions = new long[] { 400, 320 };
+
+final Img< UnsignedByteType > img = factory.create( dimensions );
+```
+
+Line 1: Pixel images in ImgLib2 are created using an *ImgFactory*. There are different ImgFactories, that create pixel containers with different memory layouts. Here, we create an ArrayImgFactory. This factory creates containers that map to a single flat Java array.
+
+The type parameter of the factory specifies the value type of the image we want to create. We want to create a 8-bit gray-level image, thus we use UnsignedByteType.
+
+Line 2: Next we create a long[] array that specifies the image size in every dimension. The length of the array specifies the number of dimensions. Here, we state that we want to create 400x320 2D image.
+
+Line 3: We create the image, using the factory and dimensions. We store the result of the create() method in an Img variable. Img is a convenience interface that gathers properties of pixel image containers such as having a number of dimensions, being able to iterate its pixels, etc.
+
+# Opening and Displaying Image Files
+You can open image files with the IO utility class of SCIFIO which calls Bio-Formats as needed. The following opens and displays an image file.
+
+```python
+import net.imglib2.img.Img
+import net.imglib2.img.array.ArrayImgFactory
+import net.imglib2.type.numeric.integer.UnsignedByteType
+import io.scif.img.IO
+
+// save path for an image of Lena
+path = "https://samples.fiji.sc/new-lenna.jpg"
+
+// load image
+final Img< UnsignedByteType > img = IO.openImg( path,
+    new ArrayImgFactory<>( new UnsignedByteType() ) );
+    ```
+When opening an image, we can specify which memory layout to use and as which value type we want to load the image. We want to use the ArrayImg layout again, and we want to have UnsignedByteType values again. We need an ImgFactory and an instance of the value type.
+We can use the IO.openImg method, giving a filename and ImgFactory.
+
 # 3. How to mix and match IJ1 and IJ2 API
 
 In many cases, we can rely on the framework to do the conversion autmatically.
