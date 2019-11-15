@@ -100,7 +100,14 @@ import net.imglib2.type.numeric.integer.UnsignedByteType
 long[] dimensions = [400, 320]
 final Img< UnsignedByteType > img = new ArrayImgFactory<>( new UnsignedByteType() ).create( dimensions )
   ```
+Breaking last two lines into individual steps...
+```groovy
+final ImgFactory< UnsignedByteType > factory = new ArrayImgFactory<>( new UnsignedByteType() );
 
+final long[] dimensions = new long[] { 400, 320 };
+
+final Img< UnsignedByteType > img = factory.create( dimensions );
+```
 Line 1: Pixel images in ImgLib2 are created using an *ImgFactory*. There are different ImgFactories, that create pixel containers with different memory layouts. Here, we create an ArrayImgFactory. This factory creates containers that map to a single flat Java array.
 
 The type parameter of the factory specifies the value type of the image we want to create. We want to create a 8-bit gray-level image, thus we use UnsignedByteType.
