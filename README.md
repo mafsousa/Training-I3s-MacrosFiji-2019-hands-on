@@ -91,18 +91,15 @@ For more services, see https://imagej.net/SciJava_Common#Services
 
 # 3. Creating and Displaying an Image
 The following piece of code creates and displays an 400x320 8-bit gray-level image:
-```python
+```groovy
 import net.imglib2.img.Img
 import net.imglib2.img.array.ArrayImgFactory
 import net.imglib2.type.numeric.integer.UnsignedByteType
  
-# will create a window showing a black 400x320 image
-final ImgFactory< UnsignedByteType > factory = new ArrayImgFactory<>( new UnsignedByteType() );
-
-final long[] dimensions = new long[] { 400, 320 };
-
-final Img< UnsignedByteType > img = factory.create( dimensions );
-```
+// will create a window showing a black 400x320 image
+long[] dimensions = [400, 320]
+final Img< UnsignedByteType > img = new ArrayImgFactory<>( new UnsignedByteType() ).create( dimensions )
+  ```
 
 Line 1: Pixel images in ImgLib2 are created using an *ImgFactory*. There are different ImgFactories, that create pixel containers with different memory layouts. Here, we create an ArrayImgFactory. This factory creates containers that map to a single flat Java array.
 
