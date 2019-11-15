@@ -145,8 +145,7 @@ we can just use two input parameters (the Dataset above and a new ImagePlus here
 # Run an ImageJ1 plugin, e.g. Invert...
 import ij.IJ
 IJ.run(imp, "Invert", "")
-
-````
+```
 If we really need to convert between the two,
 (e.g. because you create a new image and need to process it)
 we have several options to do so:
