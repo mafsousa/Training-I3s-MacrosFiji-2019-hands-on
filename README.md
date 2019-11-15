@@ -192,17 +192,17 @@ On Fiji, Pluggins > Utilities > Find Ops…! Look for a single slice on an hyper
 #@ OpService ops
 
  # Task 3: Extract a the first channel (i.e. index 0 from dimension 2)
-	channel1 = ops.run("hyperSliceView", image, 2, 1)
-	print("The result has %s dimensions." % channel1.numDimensions())
+channel1 = ops.run("hyperSliceView", image, 2, 1)
+print("The result has %s dimensions." % channel1.numDimensions())
  
  ```
 
 Step 4: Apply Difference-of-Gaussians (DoG) filter
 
 ```python
-	# Task 4: Apply a Difference of Gaussians (DoG) filter
-	#   NOTE: we have to convert to 'float32' to get the desired result
-	dog_ch1 = ops.run("filter.dog", ops.run("convert.float32", channel1), 1.5, 1.0)
+# Task 4: Apply a Difference of Gaussians (DoG) filter
+#   NOTE: we have to convert to 'float32' to get the desired result
+dog_ch1 = ops.run("filter.dog", ops.run("convert.float32", channel1), 1.5, 1.0)
 
 ```
 
@@ -216,8 +216,8 @@ from net.imglib2.algorithm.localextrema import LocalExtrema
 from net.imglib2.type.numeric.real import FloatType
 
 # Task 5: Detect local maxima using LocalExtrema from ImgLib2
-	pointList1 = LocalExtrema.findLocalExtrema(dog_ch1, LocalExtrema.MaximumCheck(FloatType(100)))
-	print("The returned list has %s entries." % len(pointList1))
+pointList1 = LocalExtrema.findLocalExtrema(dog_ch1, LocalExtrema.MaximumCheck(FloatType(100)))
+print("The returned list has %s entries." % len(pointList1))
 	
  ```
 
@@ -232,20 +232,20 @@ https://javadoc.scijava.org/ImageJ1/index.html?ij/measure/ResultsTable.html
  #@ ResultsTable rt
  
  # Task 6: Add point coordinates to results table
-	for point in pointList1:
-		rt.incrementCounter()
-		rt.addValue("Channel", 1)
-		rt.addValue("X", point.getIntPosition(0))
-		rt.addValue("Y", point.getIntPosition(1))
-		rt.addValue("Z", point.getIntPosition(2))
-  rt.show("Results")
+for point in pointList1:
+	rt.incrementCounter()
+	rt.addValue("Channel", 1)
+	rt.addValue("X", point.getIntPosition(0))
+	rt.addValue("Y", point.getIntPosition(1))
+	rt.addValue("Z", point.getIntPosition(2))
+
+rt.show("Results")
 
 ```
 
 Step 7: Repeat steps 3-6 for the other two channels
 
-Define a function to perform the repetition for the other channels, where the varible of the function is the *channel*
-
+Define a function to perform the repetition for the other channels, where the *channel* is the variable in the function 
 ```python
 def detectSpots(image, channel):
 	# Task 3: Extract a the first channel (i.e. index 0 from dimension 2)
