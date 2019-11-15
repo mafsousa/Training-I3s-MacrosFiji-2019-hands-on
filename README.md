@@ -108,13 +108,13 @@ final long[] dimensions = new long[] { 400, 320 };
 
 final Img< UnsignedByteType > img = factory.create( dimensions );
 ```
-Line 1: Pixel images in ImgLib2 are created using an *ImgFactory*. There are different ImgFactories, that create pixel containers with different memory layouts. Here, we create an ArrayImgFactory. This factory creates containers that map to a single flat Java array.
+Line 1: Pixel images in ImgLib2 are created using an **ImgFactory**. There are different ImgFactories, that create pixel containers with different memory layouts. Here, we create an **ArrayImgFactory**. This factory creates containers that map to a single flat Java array.
 
-The type parameter of the factory specifies the value type of the image we want to create. We want to create a 8-bit gray-level image, thus we use UnsignedByteType.
+The type parameter of the factory specifies the value type of the image we want to create. We want to create a 8-bit gray-level image, thus we use **UnsignedByteType**.
 
-Line 2: Next we create a long[] array that specifies the image size in every dimension. The length of the array specifies the number of dimensions. Here, we state that we want to create 400x320 2D image.
+Line 2: Next we create a **long[] array** that specifies the image size in every dimension. The length of the array specifies the number of dimensions. Here, we state that we want to create 400x320 2D image.
 
-Line 3: We create the image, using the factory and dimensions. We store the result of the create() method in an Img variable. Img is a convenience interface that gathers properties of pixel image containers such as having a number of dimensions, being able to iterate its pixels, etc.
+Line 3: We create the image, using the factory and dimensions. We store the result of the **create()** method in an **Img** variable. Img is a convenience interface that gathers properties of pixel image containers such as having a number of dimensions, being able to iterate its pixels, etc.
 
 # 4. Opening and Displaying Image Files
 You can open image files with the IO utility class of SCIFIO which calls Bio-Formats as needed. The following opens and displays an image file.
@@ -132,8 +132,7 @@ path = "https://samples.fiji.sc/new-lenna.jpg"
 final Img< UnsignedByteType > img = IO.openImg( path, new ArrayImgFactory<>( new UnsignedByteType() ) );
 ```
 
-When opening an image, we can specify which memory layout to use and as which value type we want to load the image. We want to use the ArrayImg layout again, and we want to have UnsignedByteType values again. We need an ImgFactory and an instance of the value type.
-We can use the IO.openImg method, giving a filename and ImgFactory.
+When opening an image, we can specify which memory layout to use and as which value type we want to load the image. We want to use the **ArrayImg** layout again, and we want to have **UnsignedByteType** values again. We need an **ImgFactory** and an instance of the value type. We can use the **IO.openImg** method, giving a filename and **ImgFactory**.
 
 # Exercise it
 
