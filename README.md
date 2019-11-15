@@ -133,9 +133,10 @@ We can use the IO.openImg method, giving a filename and ImgFactory.
 **3D spot detection in a 3-channel stack**
 
 Goal: For each channel, detect foci and report their location
-Lets try scripting with python!
+Lets try scripting with python! Download *images* folder and *Spot_Detection_Task1.py* from the above repository.
+Open it on your Fiji UI!
 
-Step 1: Open one image
+Step 1: Open one of the images
 
 ```python
 #@ File (label="Input image", style="file") input
@@ -269,6 +270,3 @@ detectSpots(image, 2)
 rt.show("Results")
 
 ```
-
-
-
