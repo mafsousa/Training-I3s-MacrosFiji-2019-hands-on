@@ -130,7 +130,7 @@ We can use the IO.openImg method, giving a filename and ImgFactory.
 
 # Exercise it
 
-**3D spot detection in a 3-channel stack
+**3D spot detection in a 3-channel stack**
 
 Goal: For each channel, detect foci and report their location
 Lets try scripting with python!
@@ -180,6 +180,7 @@ Step 3: Extract single channel
 
 Know lets use ImageJ Ops to manipulate our image.
 On Fiji, Pluggins > Utilities > Find Ops…! Look for a single slice on an hyperstack
+
 ```python
 #@ OpService ops
 
@@ -203,8 +204,6 @@ Step 5: Detect local maxima
 Detecting local maxima using ImgLib2 **LocalExtrema**: find pixels that are extrema in their local neighborhood.
 https://javadoc.scijava.org/ImgLib2/index.html?net/imglib2/algorithm/localextrema/LocalExtrema.html
 
-
-
 ```python
 from net.imglib2.algorithm.localextrema import LocalExtrema
 from net.imglib2.type.numeric.real import FloatType
@@ -214,19 +213,17 @@ from net.imglib2.type.numeric.real import FloatType
 	print("The returned list has %s entries." % len(pointList1))
 	
  ```
-	Step 6: Add maxima coordinates to results table
- 
-```python 
- #@ ResultsTable rt
-```
 
-rt.incrementCounter() 		# Increments the measurement counter by one.
-rt.addValue("Column", 1.2)	# Adds a value to the end of the given column.
-rt.show("Results")
+Step 6: Add maxima coordinates to results table
 
- https://javadoc.scijava.org/ImageJ1/index.html?ij/measure/ResultsTable.html
- 
+Populating the result table with ImageJ1 *ResultsTable*:
+
+https://javadoc.scijava.org/ImageJ1/index.html?ij/measure/ResultsTable.html
+
  ```python
+
+ #@ ResultsTable rt
+ 
  # Task 6: Add point coordinates to results table
 	for point in pointList1:
 		rt.incrementCounter()
