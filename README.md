@@ -274,5 +274,7 @@ detectSpots(image, 1)
 detectSpots(image, 2)
 
 rt.show("Results")
+#clear table
+rt.reset()
 
 ```
