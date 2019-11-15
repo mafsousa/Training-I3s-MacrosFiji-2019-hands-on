@@ -109,10 +109,10 @@ Line 2: Next we create a long[] array that specifies the image size in every dim
 
 Line 3: We create the image, using the factory and dimensions. We store the result of the create() method in an Img variable. Img is a convenience interface that gathers properties of pixel image containers such as having a number of dimensions, being able to iterate its pixels, etc.
 
-# Opening and Displaying Image Files
+# 4. Opening and Displaying Image Files
 You can open image files with the IO utility class of SCIFIO which calls Bio-Formats as needed. The following opens and displays an image file.
 
-```python
+```groovy
 import net.imglib2.img.Img
 import net.imglib2.img.array.ArrayImgFactory
 import net.imglib2.type.numeric.integer.UnsignedByteType
@@ -124,54 +124,7 @@ path = "https://samples.fiji.sc/new-lenna.jpg"
 // load image
 final Img< UnsignedByteType > img = IO.openImg( path,
     new ArrayImgFactory<>( new UnsignedByteType() ) );
-    ```
+```
+
 When opening an image, we can specify which memory layout to use and as which value type we want to load the image. We want to use the ArrayImg layout again, and we want to have UnsignedByteType values again. We need an ImgFactory and an instance of the value type.
 We can use the IO.openImg method, giving a filename and ImgFactory.
-
-# 3. How to mix and match IJ1 and IJ2 API
-
-In many cases, we can rely on the framework to do the conversion autmatically.
-
-For other cases, we can use the ConvertService to convert from one type to another.
-
-If we need to have the active image both as (IJ2) Dataset and (IJ1) ImagePlus,
-we can just use two input parameters (the Dataset above and a new ImagePlus here):
-```python
-#@ ImagePlus imp
-
-# Run an ImageJ1 plugin, e.g. Invert...
-import ij.IJ
-IJ.run(imp, "Invert", "")
-```
-If we really need to convert between the two,
-(e.g. because you create a new image and need to process it)
-we have several options to do so:
-
- 1. ConvertService.convert()
- 2. LegacyService.getImageMap.register...
- 3. ImageJFunctions.wrap()
-
-```python
-# Create a new image using Ops
-sinusoidImage = ops.run("create.img", [100, 100])
-
-# Fill image with some data
-ops.run("image.equation", sinusoidImage, "63 * (Math.cos(0.3*p[0]) + Math.sin(0.3*p[1])) + 127")
-
-# Create a Dataset from the result
-#@ DatasetService datasetService
-sinusoidDataset = datasetService.create(sinusoidImage)
-
-#show image
-ui.show(sinusoidDataset)
-
-# Convert the image using ConvertService
-import ij.ImagePlus
-sinusoidImp = convertService.convert(sinusoidDataset, ImagePlus.class)
-
-# Run "Find Maxima...", an ImageJ1 plugin, to count the maxima
-IJ.run(sinusoidImp, "Find Maxima...", "noise=10 output=Count")
-```
-For further information on mixing and matching IJ1 and IJ2, see:
-
-https://imagej.net/ImageJ1-ImageJ2_cheat_sheet
